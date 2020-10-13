@@ -1,25 +1,35 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Row, Col, Image, ListGroup, Card, Button } from "react-bootstrap";
 import Rating from "../components/Rating";
 
+import { useDispatch, useSelector } from "react-redux";
+import { listProductDetail } from "../actions/productActions";
+import Loader from "../components/Loader";
+import Message from "../components/Message";
+
 const ProductScreen = ({ match }) => {
-  const [product, setProduct] = useState({});
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const fetchProduct = async () => {
-      const { data } = await axios.get(`/api/products/${match.params.id}`);
-      setProduct(data);
-    };
-    fetchProduct();
-  }, [match.params.id]);
+    dispatch(listProductDetail(match.params.id));
+  }, [dispatch, match.params.id]);
+
+  const productDetail = useSelector((state) => state.productDetail);
+  const { error, loading, product } = productDetail;
 
   return (
     <>
       <Link className="btn btn-dark my-3 " to="/">
         Quay Lại
       </Link>
+      <Row>
+        {loading ? (
+          <Loader />
+        ) : error ? (
+          <Message variant="danger">{error}</Message>
+        ) : null}
+      </Row>
       <Row>
         <Col md={6}>
           <Image src={product.image} alt={product.name} fluid />
