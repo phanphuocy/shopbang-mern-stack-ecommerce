@@ -1,0 +1,22 @@
+{
+  "name": "shopbang-mern-stack-ecommerce",
+  "version": "1.0.0",
+  "main": "server.js",
+  "repository": "https://github.com/phanphuocy/shopbang-mern-stack-ecommerce.git",
+  "author": "Phan Phước Ý <phanphuocy@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node backend/server.js",
+    "server": "nodemon backend/server.js",
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "concurrently": "^5.3.0",
+    "nodemon": "^2.0.4"
+  }
+}
