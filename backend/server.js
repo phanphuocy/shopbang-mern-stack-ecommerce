@@ -4,7 +4,9 @@ const connectDB = require("./config/db");
 const colors = require("colors");
 const productRoute = require("./routes/productRoute");
 const userRoute = require("./routes/userRoute");
+const orderRoute = require("./routes/orderRoute");
 const { notFound, errorHandler } = require("./middlewares/errorMiddleware");
+
 // Initialize
 const app = express();
 dotenv.config();
@@ -18,6 +20,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/products", productRoute);
 app.use("/api/users", userRoute);
+app.use("/api/orders", orderRoute);
 
 app.use(notFound);
 
