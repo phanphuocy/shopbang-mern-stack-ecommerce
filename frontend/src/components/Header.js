@@ -2,8 +2,18 @@ import React from "react";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import Image from "react-bootstrap/Image";
 import { LinkContainer } from "react-router-bootstrap";
-
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../actions/userActions";
 const Header = () => {
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  const dispatch = useDispatch();
+
+  const logoutHandler = () => {
+    dispatch(logout());
+  };
+
   return (
     <header>
       <Navbar bg="light" expand="xl">
@@ -19,20 +29,23 @@ const Header = () => {
               <LinkContainer to="/">
                 <Nav.Link>Home</Nav.Link>
               </LinkContainer>
-              <Nav.Link href="#link">Link</Nav.Link>
-              <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">
-                  Another action
-                </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">
-                  Something
-                </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">
-                  Separated link
-                </NavDropdown.Item>
-              </NavDropdown>
+              <LinkContainer to="/cart">
+                <Nav.Link>Giỏ Hàng</Nav.Link>
+              </LinkContainer>
+              {userInfo ? (
+                <NavDropdown title={userInfo.name} id="username">
+                  <LinkContainer to="/profile">
+                    <NavDropdown.Item>Tài Khoản Của Bạn</NavDropdown.Item>
+                  </LinkContainer>
+                  <NavDropdown.Item onClick={logoutHandler}>
+                    Đăng Xuất
+                  </NavDropdown.Item>
+                </NavDropdown>
+              ) : (
+                <LinkContainer to="/login">
+                  <Nav.Link>Đăng Nhập</Nav.Link>
+                </LinkContainer>
+              )}
             </Nav>
             {/* <Form inline>
               <FormControl
