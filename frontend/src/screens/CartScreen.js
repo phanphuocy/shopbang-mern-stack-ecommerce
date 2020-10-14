@@ -100,10 +100,13 @@ const CartScreen = ({ match, location, history }) => {
                 {cartItems.reduce((acc, item) => acc + item.qty, 0)}) SẢN PHẨM
               </h5>
               <h2>
-                {cartItems.reduce(
-                  (acc, item) => acc + item.qty * item.price,
-                  0
-                )}
+                {Math.round(
+                  cartItems.reduce(
+                    (acc, item) => acc + item.qty * item.price,
+                    0
+                  )
+                )}{" "}
+                VND
               </h2>
             </ListGroup.Item>
             <ListGroup.Item>

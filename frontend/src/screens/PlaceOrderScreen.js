@@ -11,14 +11,15 @@ const PlaceOrderScreen = ({ history }) => {
 
   const dispatch = useDispatch();
 
-  cart.itemPrice = cart.cartItems.reduce(
-    (acc, curr) => acc + curr.price * curr.qty,
-    0
+  cart.itemsPrice = Math.round(
+    cart.cartItems.reduce((acc, curr) => acc + curr.price * curr.qty, 0)
   );
-  cart.shippingPrice = cart.itemPrice > 100 ? 0 : 100;
-  cart.taxPrice = Math.floor(Number(0.15 * cart.itemPrice));
+  cart.shippingPrice = Math.round(cart.itemsPrice > 100 ? 0 : 100);
+  cart.taxPrice = Math.round(Number(0.15 * cart.itemsPrice));
   cart.totalPrice =
-    Number(cart.itemPrice) + Number(cart.shippingPrice) + Number(cart.taxPrice);
+    Number(cart.itemsPrice) +
+    Number(cart.shippingPrice) +
+    Number(cart.taxPrice);
 
   if (!cart.paymentMethod) {
     history.push("/payment");
@@ -39,7 +40,7 @@ const PlaceOrderScreen = ({ history }) => {
         orderItems: cart.cartItems,
         shippingAddress: cart.shippingAddress,
         paymentMethod: cart.paymentMethod,
-        itemPrice: cart.itemPrice,
+        itemsPrice: cart.itemsPrice,
         shippingPrice: cart.shippingPrice,
         taxPrice: cart.taxPrice,
         totalPrice: cart.totalPrice,
@@ -108,7 +109,7 @@ const PlaceOrderScreen = ({ history }) => {
               <ListGroup.Item>
                 <Row>
                   <Col>Giá trị đơn hàng</Col>
-                  <Col>{cart.itemPrice}</Col>
+                  <Col>{cart.itemsPrice}</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>

@@ -43,22 +43,24 @@ const getOrders = asyncHandler(async (req, res) => {
   res.json(products);
 });
 
-// @desc    Fetch single product by id
-// @route   GET /api/products/:id
+// @desc    Fetch single order by id
+// @route   GET /api/orders/:id
 // @access  Public
-const getProductById = asyncHandler(async (req, res) => {
-  const product = await Orders.findById(req.params.id);
+const getOrderById = asyncHandler(async (req, res) => {
+  const order = await Orders.findById(req.params.id).populate(
+    "user",
+    "name email"
+  );
 
-  if (product) {
-    res.json(product);
+  if (order) {
+    res.json(order);
   } else {
     res.status(404);
-    throw new Error("Không Thể Tìm Thấy Sản Phẩm");
+    throw new Error("Không Thể Tìm Thấy Đơn Hàng.");
   }
 });
 
 module.exports = {
   addOrderItems,
-  getOrders,
-  getProductById,
+  getOrderById,
 };
