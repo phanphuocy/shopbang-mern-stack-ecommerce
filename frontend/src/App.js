@@ -8,6 +8,9 @@ import CartScreen from "./screens/CartScreen";
 import LoginScreen from "./screens/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 import ProfileScreen from "./screens/ProfileScreen";
+import ShippingScreen from "./screens/ShippingScreen";
+import PaymentScreen from "./screens/PaymentScreen";
+import PlaceOrderScreen from "./screens/PlaceOrderScreen";
 import { Container } from "react-bootstrap";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
@@ -22,6 +25,9 @@ function App() {
           <Route path="/profile" component={ProfileScreen} />
           <Route path="/product/:id" component={ProductScreen} exact />
           <Route path="/cart/:id?" component={CartScreen} exact />
+          <Route path="/shipping" component={ShippingScreen} exact />
+          <Route path="/payment" component={PaymentScreen} exact />
+          <Route path="/placeorder" component={PlaceOrderScreen} exact />
           <Route path="/" component={HomeScreen} exact />
         </Container>
       </main>
